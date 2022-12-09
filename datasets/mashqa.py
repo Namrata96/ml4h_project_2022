@@ -2,13 +2,13 @@ import os
 import json
 import pandas as pd
 
-processed_files = {'train': "/Users/namrata/Downloads/Fall 2022/Healthcare/project/dataset/mashqa_data/processed/train.json",
-'val': "/Users/namrata/Downloads/Fall 2022/Healthcare/project/dataset/mashqa_data/processed/val.json",
-'test': "/Users/namrata/Downloads/Fall 2022/Healthcare/project/dataset/mashqa_data/processed/test.json"}
+processed_files = {'train': "/scratch/nm3571/healthcare/data/train.json",
+'val': "/scratch/nm3571/healthcare/data/val.json",
+'test': "/scratch/nm3571/healthcare/data/test.json"}
 
-data_files = {'train': "/Users/namrata/Downloads/Fall 2022/Healthcare/project/dataset/mashqa_data/train_webmd_squad_v2_full.json",
-'val': "/Users/namrata/Downloads/Fall 2022/Healthcare/project/dataset/mashqa_data/processed/val_webmd_squad_v2_full.json",
-'test': "/Users/namrata/Downloads/Fall 2022/Healthcare/project/dataset/mashqa_data/processed/test_webmd_squad_v2_full.json"}
+data_files = {'train': "/home/nm3571/healthcare/ml4h_project_2022/datasets/mashqa/mashqa_data/train_webmd_squad_v2_full.json",
+'val': "/home/nm3571/healthcare/ml4h_project_2022/datasets/mashqa/mashqa_data/val_webmd_squad_v2_full.json",
+'test': "/home/nm3571/healthcare/ml4h_project_2022/datasets/mashqa/mashqa_data/test_webmd_squad_v2_full.json"}
 
 def process(r, file_name):
     input_data = r['data']
