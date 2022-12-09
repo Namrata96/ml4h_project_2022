@@ -131,3 +131,4 @@ dmypy.json
 gpt_key.txt
 *.csv
 *.json
+jobs/
