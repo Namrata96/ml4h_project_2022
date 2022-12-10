@@ -43,7 +43,7 @@ def process(r, file_name):
     print(examples[:5])
     json.dump(examples, open(file_name, 'w'))
 
-for i, data_file in enumerate(data_files):
-    r = json.load(open(data_file, 'r'))
-    process(r, processed_files[i])
+for data_file in data_files:
+    r = json.load(open(data_files[data_file], 'r'))
+    process(r, processed_files[data_file])
 
