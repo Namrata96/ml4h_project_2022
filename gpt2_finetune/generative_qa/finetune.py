@@ -30,11 +30,11 @@ tokenizer = GPT2Tokenizer.from_pretrained('gpt2', pad_token = '<|pad|>')
 
 model = GPT2LMHeadModel.from_pretrained('gpt2')
 
-train_dataset = GPT2GenQADataset(train_data['input_text'], train_data['answer'], tokenizer)
+train_dataset = GPT2GenQADataset(train_data['input_text'], train_data['text'], tokenizer)
 
 train_size = int(0.9 * len(train_dataset))
 val_size = len(train_dataset) - train_size
-batch_size = 5
+batch_size = 10
 train_split, val_split = random_split(train_dataset, [train_size, val_size])
 
 train_dataloader = DataLoader(
@@ -63,7 +63,7 @@ learning_rate = 5e-4
 warmup_steps = 1e2
 epsilon = 1e-8
 
-patience = 5
+patience = 2
 
 optimizer = AdamW(model.parameters(),
                   lr = learning_rate,
@@ -85,10 +85,12 @@ for epoch in range(epochs):
     for step, batch in enumerate(train_dataloader):
         input_ids = batch[0].to(device)
         answer_ids = batch[1].to(device)
+        attn_masks = batch[2].to(device)
         model.zero_grad()
-        outputs = model(input_ids, labels = answer_ids)
+        outputs = model(input_ids, labels = answer_ids, attention_mask = attn_masks)
         loss = outputs[0]  
         batch_loss = loss.item()
+        print("Step Loss: ", batch_loss)
         train_stats['train_step_loss'].append(batch_loss)
         epoch_train_loss += batch_loss
         loss.backward()
@@ -103,9 +105,9 @@ for epoch in range(epochs):
     for val_step, val_batch in enumerate(validation_dataloader):
         input_ids = val_batch[0].to(device)
         answer_ids = val_batch[1].to(device)
-        
+        attn_masks = val_batch[2].to(device)
         with torch.no_grad():
-            outputs  = model(input_ids, labels = answer_ids)
+            outputs  = model(input_ids, labels = answer_ids, attention_mask = attn_masks)
             loss = outputs[0]  
         epoch_val_loss += loss.item()
         

@@ -9,7 +9,7 @@ class GPT2GenQADataset(Dataset):
         self.tokenizer = tokenizer
         self.input_ids = []
         self.answer_ids = []
-#         self.input_attn_masks = []
+        self.input_attn_masks = []
 #         self.answer_attn_masks = []
         
         assert len(input_txt) == len(answer_txt)
@@ -21,12 +21,12 @@ class GPT2GenQADataset(Dataset):
             answer_encodings_dict = tokenizer(answer_txt, truncation = True, max_length = max_length, padding = "max_length")
             
             self.input_ids.append(torch.tensor(input_encodings_dict['input_ids']))
-#             self.input_attn_masks.append(torch.tensor(input_encodings_dict['attention_mask']))
             self.answer_ids.append(torch.tensor(answer_encodings_dict['input_ids']))
+            self.input_attn_masks.append(torch.tensor(input_encodings_dict['attention_mask']))
 #             self.answer_attn_masks.append(torch.tensor(answer_encodings_dict['attention_mask']))
     
     def __len__(self):
         return len(self.input_ids)
 
     def __getitem__(self, idx):
-        return self.input_ids[idx] , self.answer_ids[idx]
+        return self.input_ids[idx] , self.answer_ids[idx], self.input_attn_masks[idx]

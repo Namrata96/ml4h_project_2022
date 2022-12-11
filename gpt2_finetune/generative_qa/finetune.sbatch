@@ -5,7 +5,7 @@
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
 #SBATCH --mem=64GB 
-#SBATCH --time=2:00:00 
+#SBATCH --time=15:00:00 
 #SBATCH --gres=gpu:1
 
 module purge

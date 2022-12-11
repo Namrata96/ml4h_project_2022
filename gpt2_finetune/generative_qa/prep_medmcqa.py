@@ -18,9 +18,9 @@ def format_for_abstractive_qa(train_json_data):
             if c_idx > 3 or c_idx < 0:
                 return np.nan
             answer = [entry['opa'],entry['opb'],entry['opc'],entry['opd']][c_idx]
-            formatted_entry = {'exp': entry['exp'], 'question': entry['question'], 'answer': answer, 'input_text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question']}
+            formatted_entry = {'exp': entry['exp'], 'question': entry['question'], 'answer': answer, 'input_text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question'] + '\nAnswer: ', 'text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question'] + '\nAnswer: ' + answer}
         except Exception:
-            formatted_entry = {'exp': None, 'question': None, 'answer': None, 'input_text': None}
+            formatted_entry = {'exp': None, 'question': None, 'answer': None, 'input_text': None, 'text': None}
         formatted_train_df.append(formatted_entry)
     return formatted_train_df
 
