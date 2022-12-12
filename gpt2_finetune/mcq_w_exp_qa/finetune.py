@@ -34,7 +34,7 @@ train_dataset = GPT2GenQADataset(train_data['input_text'], train_data['text'], t
 
 train_size = int(0.9 * len(train_dataset))
 val_size = len(train_dataset) - train_size
-batch_size = 10
+batch_size = 5
 train_split, val_split = random_split(train_dataset, [train_size, val_size])
 
 train_dataloader = DataLoader(
@@ -58,7 +58,7 @@ model = GPT2LMHeadModel.from_pretrained("gpt2", config=configuration)
 model.resize_token_embeddings(len(tokenizer))
 model = model.to(device)
 
-epochs = 3
+epochs = 5
 learning_rate = 5e-4
 warmup_steps = 1e2
 epsilon = 1e-8
@@ -75,7 +75,7 @@ scheduler = get_linear_schedule_with_warmup(optimizer,
                                             num_warmup_steps = warmup_steps, 
                                             num_training_steps = total_steps)
 
-train_stats = {'train_step_loss' : [], 'epoch_train_loss': [], 'epoch_val_loss': []}
+train_stats = {'epoch_train_loss': [], 'epoch_val_loss': []}
 best_val_loss = 1000
 best_epoch_idx = 0
 
@@ -91,7 +91,6 @@ for epoch in range(epochs):
         loss = outputs[0]  
         batch_loss = loss.item()
         print("Step Loss: ", batch_loss)
-        train_stats['train_step_loss'].append(batch_loss)
         epoch_train_loss += batch_loss
         loss.backward()
         optimizer.step()

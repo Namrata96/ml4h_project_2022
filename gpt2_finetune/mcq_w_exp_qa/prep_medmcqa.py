@@ -10,7 +10,7 @@ test_json = os.path.join(root_dir, "Data/MedMCQA/test.json")
 
 train_json_data = pd.read_json(train_json, lines = True)
 
-def format_for_abstractive_qa(train_json_data):
+def format_for_mcq_qa(train_json_data):
     formatted_train_df = []
     for idx, entry in train_json_data.iterrows():
         try:
@@ -18,12 +18,16 @@ def format_for_abstractive_qa(train_json_data):
             if c_idx > 3 or c_idx < 0:
                 return np.nan
             answer = [entry['opa'],entry['opb'],entry['opc'],entry['opd']][c_idx]
-            formatted_entry = {'exp': entry['exp'], 'question': entry['question'], 'answer': answer, 'input_text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question'] + '\nOptions: ' +'\n' + entry['opa'] + '\n' + entry['opb'] + '\n' + entry['opc'] + '\n' + entry['opd'] + '\nAnswer: ', 'text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question'] + '\nOptions: ' +'\n' + entry['opa'] + '\n' + entry['opb'] + '\n' + entry['opc'] + '\n' + entry['opd'] + '\nAnswer: ' + answer}
+            formatted_entry = {'exp': entry['exp'], 
+                               'question': entry['question'], 
+                               'answer': answer, 
+                               'input_text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question'] + '\nOptions: ' +'\n' + entry['opa'] + '\n' + entry['opb'] + '\n' + entry['opc'] + '\n' + entry['opd'] + '\nAnswer: ', 
+                               'text': 'Context: ' + entry['exp'] + '\nQuestion: ' + entry['question'] + '\nOptions: ' +'\n' + entry['opa'] + '\n' + entry['opb'] + '\n' + entry['opc'] + '\n' + entry['opd'] + '\nAnswer: ' + answer}
         except Exception:
             formatted_entry = {'exp': None, 'question': None, 'answer': None, 'input_text': None, 'text': None}
         formatted_train_df.append(formatted_entry)
     return formatted_train_df
 
-formatted_train_df = pd.DataFrame(format_for_abstractive_qa(train_json_data))
+formatted_train_df = pd.DataFrame(format_for_mcq_qa(train_json_data))
 
 formatted_train_df.to_csv(os.path.join(root_dir, 'Data/MedMCQA/train_for_mcq_qa.csv'))
