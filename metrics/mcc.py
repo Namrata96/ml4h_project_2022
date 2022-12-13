@@ -12,8 +12,9 @@ def medical_concept_coverage(predictions, actuals, batch_size=1, device=-1):
     
     predicted_out = oracle(predictions)
     actuals_out = oracle(actuals)
-    predicted_out_set = set([d['word'] for d in predicted_out])
-    actuals_out_set = set([d['word'] for d in actuals_out])
+    # print(predicted_out)
+    predicted_out_set = set([l['word'] for d in predicted_out for l in d])
+    actuals_out_set = set([l['word'] for d in actuals_out for l in d])
     common = predicted_out_set.intersection(actuals_out_set)
     if len(actuals_out_set) > 0:
         return len(common) / len(actuals_out_set)
