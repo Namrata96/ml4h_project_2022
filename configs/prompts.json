@@ -1,7 +1,0 @@
-{"mashqa_prompts": {"zero_shot_empty": "Question: '{question}'%nAnswer: among A through D, the answer is ", 
-                    "zero_shot_cot": "Question: '{question}'%nAnswer: Let's think step by step%nTherefore, the answer is ",
-                    "zero_shot_empty_plus_grounding": "Context: '{context}'%nQuestion: '{question}'%nAnswer: ",
-                    "one_shot": "Question: '{shot_question}'%nAnswer: Let's think step by step. '{shot_explanation}'%nTherefore, among A through D, the answer is '{shot_answer}'%nQuestion: '{question}'%nAnswer: Let's think step by step%nTherefore, the answer is "
-                }
-                
-}

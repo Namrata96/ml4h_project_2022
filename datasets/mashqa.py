@@ -46,4 +46,4 @@ def process(r, file_name):
 for data_file in data_files:
     r = json.load(open(data_files[data_file], 'r'))
     process(r, processed_files[data_file])
-
+print("Done")
