@@ -39,12 +39,12 @@ def sampled_evaluation(prediction_file:str, sample_ratio:int):
         
     for prompt in predictions:
         print("Calculating BLEU score")
-        bleu_score_out = bleu_score(final_predictions[prompt], actuals[prompt])
+        bleu_score_out = metrics.bleu_score(final_predictions[prompt], actuals[prompt])
         print("Calculating ROUGE score")
-        rouge_out = rouge_score(final_predictions[prompt], actuals[prompt])
+        rouge_out = metrics.rouge_score(final_predictions[prompt], actuals[prompt])
         print("Calculating BLEU score")
-        ppl_out = mean_perplexity(final_predictions[prompt])
-        mcc_out = medical_concept_coverage(final_predictions[prompt], actuals[prompt], 8, device)
+        ppl_out = metrics.mean_perplexity(final_predictions[prompt])
+        mcc_out = metrics.medical_concept_coverage(final_predictions[prompt], actuals[prompt], 8, device)
         print("Prompt: ", prompt)
         print("bleu:{0}, rouge:{1}, ppl:{2}, mcc:{3}, total_samples:{4}".format(bleu_score_out, rouge_out, ppl_out, mcc_out, len(final_predictions[prompt])))
 
