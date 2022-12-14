@@ -1,0 +1,15 @@
+{"prompts": 
+    {
+        "MASHQA": 
+                {
+                        "zero_shot_empty": "Question: {question}\nAnswer: the answer is ", 
+                        "zero_shot_cot": "Question: {question}\nAnswer: Let's think step by step\nTherefore, the answer is ",
+                        "zero_shot_empty_plus_grounding": "Context: {context}\nQuestion: {question}\nAnswer: ",
+                        "one_shot_plus_grounding": "Context: {shot_context}\nQuestion: {shot_question}\nTherefore, the answer is {shot_answer}\nQuestion: {question}\nContext: {context}\nTherefore, the answer is "
+                },
+        "MEDMCQA": 
+                {
+                        "zero_shot_empty": "Question: {question}\n{optA}\n{optB}\n{optC}\n{optD}\nAnswer: Let's derive the differential diagnosis step by step."
+                }
+    }
+}
